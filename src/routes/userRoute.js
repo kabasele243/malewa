@@ -1,4 +1,5 @@
 import express from "express";
+import {userService} from "../lib/services/index"
 import catchExceptions from '../lib/utils/catchExceptions';
 import validateIncomingUserRequest from '../lib/services/userService/IncomingRequest';
 import  logger from '../lib/utils/logger';
@@ -13,15 +14,14 @@ router.post(
       logger.info(
         `POST /api/v1/users email=${email.length} password=${password.length}`
       );
-      res.json({
-          name,
-          username,
-          email, 
-          password
-      })
-    //   const user = await userService.registerUser(email, password);
+
+      const user = await userService.registerUser(email, password);
+      console.log(req)
     //   req.session.userId = user.id;
-    //   res.json(UserView(user));
+      res.json({ 
+          name,
+          email
+      });
     })
   );
 
