@@ -1,0 +1,27 @@
+{
+  "name": "malewa",
+  "version": "1.0.0",
+  "description": "malewa",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "nodemon --experimental-modules --es-module-specifier-resolution=node  server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kabasele243/malewa.git"
+  },
+  "author": "Franck Kabasele",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kabasele243/malewa/issues"
+  },
+  "homepage": "https://github.com/kabasele243/malewa#readme",
+  "dependencies": {
+    "bunyan": "^1.8.15",
+    "dotenv": "^13.0.1",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.6"
+  }
+}
