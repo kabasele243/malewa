@@ -1,5 +1,5 @@
 import express from 'express';
-import { userRoutes , recetteRoutes } from './routes/index'
+import { userRoutes , recipeRoutes } from './routes/index'
 import logger from './lib/utils/logger.js'
 
 
@@ -8,7 +8,7 @@ const app = express();
 
 
 app.use("/api/user", userRoutes);
-app.use("/api/recette", recetteRoutes);
+app.use("/api/recipe", recipeRoutes);
 
 
 app.use((error, req, res, next) => {
