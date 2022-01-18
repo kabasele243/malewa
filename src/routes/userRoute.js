@@ -4,6 +4,7 @@ import { userService } from "../lib/services/index";
 import catchExceptions from '../lib/utils/catchExceptions';
 import validateIncomingUserRequest from '../lib/services/userService/IncomingRequest';
 import  logger from '../lib/utils/logger';
+import { createSendToken } from "../lib/utils/auth";
 const router = express.Router();
 
 
@@ -17,11 +18,7 @@ router.post(
       );
 
       const user = await userService.registerUser(email, username, password);
-      req.session.userId = user.id;
-      res.json({ 
-          name,
-          email
-      });
+      createSendToken(user, 201, req, res);
     })
   );
 
@@ -34,20 +31,23 @@ router.post(
         `POST /api/v1/login email=${email.length} password=${password.length}`
       );
       const user = await userService.login(email, password);
-      console.log(user)
-      req.session.userId = user.id;
-      res.json({ 
-        email
-    });
+     
     })
 );
   
 router.get(
     "/logout",
     catchExceptions(async (req, res) => {
-      logger.info("GET /api/v1/logout");
-      await req.session.destroy();
-      res.end();
+        logger.info("GET /api/v1/logout");
+        res.cookie('jwt', 'loggedout', {
+            expires: new Date(Date.now() + 10 * 1000),
+            httpOnly: true
+          });
+          res.status(200).json({ status: 'success' });
+    
+      
+    //   await req.session.destroy();
+    //   res.end();
     })
   );
   
