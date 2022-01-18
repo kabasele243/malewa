@@ -21,20 +21,19 @@ class UserService {
     return this.UserModel.findOne({ email });
   }
 
-  createUser(email, password) {
-    return new this.UserModel({ email, password }).save();
+  createUser(email, username, password) {
+    return new this.UserModel({ email, username, password }).save();
   }
 
-  async registerUser(username, password) {
-    const emailToSave = username + "@fmail.se";
-    const maybeUser = await this.getUserByEmail(emailToSave);
+  async registerUser(email, username, password) {
+    const maybeUser = await this.getUserByEmail(email);
 
     if (maybeUser) {
       throw new StatusError("There is already a user with that email", 400);
     }
 
     const hash = await bcrypt.hash(password, SALT_ROUNDS);
-    return this.createUser(emailToSave, hash);
+    return this.createUser(email, username, hash);
   }
 
   async login(email, password) {

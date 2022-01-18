@@ -23,6 +23,7 @@
     "bunyan": "^1.8.15",
     "dotenv": "^13.0.1",
     "express": "^4.17.2",
+    "express-session": "^1.17.2",
     "joi": "^17.5.0",
     "mongoose": "^6.1.7"
   }
