@@ -31,7 +31,7 @@ const userIsLogged = async(req, res, next) => {
     }
  
   }
-  return next();;
+  return next();
 };
 
 export default userIsLogged;

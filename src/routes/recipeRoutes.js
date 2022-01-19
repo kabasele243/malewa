@@ -1,12 +1,13 @@
 import express from "express";
+import { protectRoute, userIsLogged } from '../lib/utils/auth';
 import userIsLoggedIn from "../lib/utils/userIsLoggedIn";
 
 const router = express.Router();
 
 router.get("/", 
-    userIsLoggedIn,
+    protectRoute,
+    userIsLogged,
     (req, res) => {
-        // console.log(res.locals.user)
     res.send(res.locals.user)
     }  
 );
