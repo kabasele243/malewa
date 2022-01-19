@@ -20,12 +20,16 @@
   "homepage": "https://github.com/kabasele243/malewa#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "bunyan": "^1.8.15",
     "cookie-parser": "^1.4.6",
     "dotenv": "^13.0.1",
     "express": "^4.17.2",
+    "fetch": "^1.1.0",
     "joi": "^17.5.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.1.7"
+    "mongoose": "^6.1.7",
+    "node-fetch": "^3.1.1",
+    "validator": "^13.7.0"
   }
 }

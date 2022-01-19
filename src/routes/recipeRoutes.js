@@ -1,9 +1,13 @@
 import express from "express";
+import userIsLoggedIn from "../lib/utils/userIsLoggedIn";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.send('Recettes View')
+router.get("/", 
+    userIsLoggedIn,
+    (req, res) => {
+        // console.log(res.locals.user)
+    res.send(res.locals.user)
     }  
 );
 

@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import StatusError from '../../utils/StatusError';
 
 const SALT_ROUNDS = 10;
@@ -17,7 +16,10 @@ class UserService {
     return this.UserModel.findById(userId);
   }
 
-  getUserByEmail(email) {
+  getUserByEmail(email, islogin) {
+    if(islogin) {
+        return this.UserModel.findOne({ email }).select('+password');;
+    }
     return this.UserModel.findOne({ email });
   }
 
@@ -32,24 +34,22 @@ class UserService {
       throw new StatusError("There is already a user with that email", 400);
     }
 
-    const hash = await bcrypt.hash(password, SALT_ROUNDS);
     return this.createUser(email, username, hash);
   }
 
   async login(email, password) {
-    const maybeUser = await this.getUserByEmail(email);
 
-    if (!maybeUser) {
-      throw new StatusError("Invalid username or password", 401);
-    }
+    if (!email || !password) {
+        throw new StatusError("Please Provide Password and Username", 401);
+      }
+    const user = await this.getUserByEmail(email, true);
 
-    const passwordMatch = await bcrypt.compare(password, maybeUser.password);
+    if (!user || !(await user.correctPassword(password, user.password))) {
+        throw new StatusError("Invalid username or password", 401);
+      }
+    // const passwordMatch = await bcrypt.compare(password, maybeUser.password);
 
-    if (!passwordMatch) {
-      throw new StatusError("Invalid username or password", 401);
-    }
-
-    return maybeUser;
+    return user;
   }
 }
 

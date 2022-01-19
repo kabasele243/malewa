@@ -31,6 +31,7 @@ router.post(
         `POST /api/v1/login email=${email.length} password=${password.length}`
       );
       const user = await userService.login(email, password);
+      createSendToken(user, 201, req, res);
      
     })
 );
@@ -43,11 +44,7 @@ router.get(
             expires: new Date(Date.now() + 10 * 1000),
             httpOnly: true
           });
-          res.status(200).json({ status: 'success' });
-    
-      
-    //   await req.session.destroy();
-    //   res.end();
+        res.status(200).json({ status: 'success' });
     })
   );
   
@@ -56,10 +53,11 @@ router.get(
     userIsLoggedIn,
     catchExceptions(async (req, res) => {
       logger.info(`GET /api/v1/users/logged-in userId=${req.session.userId}`);
-      const user = await userService.getUser(req.session.userId);
-      res.json({ 
-        email
-    });
+    //   const user = await userService.getUser(req.session.userId);
+    //   res.json({ 
+    //     email
+    // });
+    console.log(req, 'lisolo')
     })
 );
 
