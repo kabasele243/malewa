@@ -1,5 +1,4 @@
 import express from "express";
-import userIsLoggedIn from "../lib/utils/userIsLoggedIn";
 import { userService } from "../lib/services/index";
 import catchExceptions from '../lib/utils/catchExceptions';
 import validateIncomingUserRequest from '../lib/services/userService/IncomingRequest';
@@ -9,7 +8,7 @@ const router = express.Router();
 
 
 router.post(
-    "/",
+    "/register",
     validateIncomingUserRequest,
     catchExceptions(async (req, res) => {
       const { name, username, email, password } = req.body;
@@ -47,18 +46,5 @@ router.get(
         res.status(200).json({ status: 'success' });
     })
   );
-  
-router.get(
-    "/logged-in",
-    userIsLoggedIn,
-    catchExceptions(async (req, res) => {
-      logger.info(`GET /api/v1/users/logged-in userId=${req.session.userId}`);
-    //   const user = await userService.getUser(req.session.userId);
-    //   res.json({ 
-    //     email
-    // });
-    console.log(req, 'lisolo')
-    })
-);
 
 export default router;
