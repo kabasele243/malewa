@@ -47,7 +47,6 @@ class UserService {
     if (!user || !(await user.correctPassword(password, user.password))) {
         throw new StatusError("Invalid username or password", 401);
       }
-    // const passwordMatch = await bcrypt.compare(password, maybeUser.password);
 
     return user;
   }
